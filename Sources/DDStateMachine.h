@@ -13,6 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NSString * DDStateMachineResult;
 
+typedef NS_ENUM(NSInteger, DDStateMachineType) {
+    DDStateMachineTypeDefault,
+    DDStateMachineTypeBoolean,
+    DDStateMachineTypeStartEnd,
+};
+
 @class DDStateMachine;
 @protocol DDStateMachineDelegate <NSObject>
 
@@ -44,6 +50,7 @@ typedef NSString * DDStateMachineResult;
 - (void)finishWithResult:(nullable DDStateMachineResult)result params:(nullable NSDictionary *)params;
 
 // for debug
+@property (nonatomic, assign) DDStateMachineType debugType;
 @property (nonatomic, strong, nullable) NSString *debugName;
 @property (nonatomic, strong, readonly, nullable) NSArray<NSString *> *validResults;
 

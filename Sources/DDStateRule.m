@@ -27,4 +27,8 @@
     }
 }
 
+- (NSString *)name {
+    return self.result;
+}
+
 @end

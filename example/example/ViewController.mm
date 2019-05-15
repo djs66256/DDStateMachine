@@ -11,6 +11,7 @@
 #import "DDStateMachineBuilder+UIKit.h"
 #import "DDStateMachine+Private.h"
 #import "DDCppStatMachineFactory.h"
+#import "DDStateMachineWriter.h"
 
 @interface ViewController ()
 @property (nonatomic, strong) DDCompositeStateMachine *stateMachine;
@@ -170,6 +171,10 @@
     }];
     
     [self.stateMachine startWithParams:@{@"test": @"Test Value"}];
+    
+    DDStateMachineMarkdownWriter *writer = [DDStateMachineMarkdownWriter new];
+    [self.stateMachine debugWriteMarkdownText:writer];
+    NSLog(@"%@", writer.markdownText);
 }
 
 

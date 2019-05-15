@@ -8,6 +8,7 @@
 
 #import "DDStateMachine.h"
 #import "DDStateRule.h"
+#import "DDStateMachineWriter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addRule:(DDStateRule *)rule from:(DDStateMachine *)from to:(DDStateMachine *)to;
 
 - (BOOL)checkRuleCompleteWithError:(NSError **)error;
+- (void)debugWriteMarkdownText:(DDStateMachineWriter *)writer;
 
 @end
 

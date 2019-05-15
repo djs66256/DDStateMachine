@@ -13,6 +13,7 @@
 }
 
 - (NSArray<DDStateRule *> *)allRules;
+- (void)enumerateRulesBlock:(void (^)(DDStateRule *rule, DDStateMachine *machine))block;
 - (void)addRule:(DDStateRule *)rule toMachine:(DDStateMachine *)machine;
 - (void)nextStateMachineWithResult:(NSString *)result params:(NSDictionary *)params result:(void(^NS_NOESCAPE)(DDStateRule *, DDStateMachine *))block;
 
@@ -38,6 +39,15 @@
     }
     
     return array;
+}
+
+- (void)enumerateRulesBlock:(void (^)(DDStateRule *, DDStateMachine *))block {
+    NSParameterAssert(block);
+    __auto_type enumerator = _ruleWithMachine.keyEnumerator;
+    DDStateRule *rule = nil;
+    while ((rule = [enumerator nextObject])) {
+        block(rule, [_ruleWithMachine objectForKey:rule]);
+    };
 }
 
 - (void)addRule:(DDStateRule *)rule toMachine:(DDStateMachine *)machine {
@@ -173,6 +183,29 @@
         return NO;
     }
     return YES;
+}
+
+- (void)debugWriteMarkdownText:(DDStateMachineWriter *)writer {
+    NSMutableString *stream = [NSMutableString new];
+    
+    [writer beginWriteCompositeMachine:self];
+    
+    DDStateMachine *machine = nil;
+    __auto_type machineEnumerator = _rules.keyEnumerator;
+    while ((machine = machineEnumerator.nextObject)) {
+        if ([machine isKindOfClass:DDCompositeStateMachine.class]) {
+            [(DDCompositeStateMachine *)machine debugWriteMarkdownText:writer];
+            continue;
+        }
+        
+        [stream appendString:@"\n"];
+        __auto_type rules = [_rules objectForKey:machine];
+        [rules enumerateRulesBlock:^(DDStateRule *rule, DDStateMachine *toMachine) {
+            [writer writeStateMachine:machine rule:rule to:toMachine];
+        }];
+    }
+    
+    [writer endWriteCompositeMachine:self];
 }
 
 @end

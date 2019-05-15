@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1482582BCFA9D50583548AF7 /* libPods-example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D700DE629B06988B483613F /* libPods-example.a */; };
 		650E1289228BB2B700B8DCEF /* DDCppStatMachineFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 650E1288228BB2B700B8DCEF /* DDCppStatMachineFactory.mm */; };
+		650E1295228C6F5400B8DCEF /* DDStateMachineWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 650E1294228C6F5400B8DCEF /* DDStateMachineWriter.m */; };
 		6513ED39228AB20A003604FA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6513ED38228AB20A003604FA /* AppDelegate.m */; };
 		6513ED3C228AB20A003604FA /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6513ED3B228AB20A003604FA /* ViewController.mm */; };
 		6513ED3F228AB20A003604FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6513ED3D228AB20A003604FA /* Main.storyboard */; };
@@ -52,6 +53,8 @@
 		31C4C026B8A2F6C63CEF4D65 /* Pods-exampleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-exampleUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-exampleUITests/Pods-exampleUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5D700DE629B06988B483613F /* libPods-example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		650E1288228BB2B700B8DCEF /* DDCppStatMachineFactory.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DDCppStatMachineFactory.mm; sourceTree = "<group>"; };
+		650E1293228C6F5400B8DCEF /* DDStateMachineWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDStateMachineWriter.h; sourceTree = "<group>"; };
+		650E1294228C6F5400B8DCEF /* DDStateMachineWriter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDStateMachineWriter.m; sourceTree = "<group>"; };
 		6513ED34228AB20A003604FA /* example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6513ED37228AB20A003604FA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6513ED38228AB20A003604FA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -210,6 +213,8 @@
 				6513ED80228AC83F003604FA /* UIKit */,
 				6513ED6D228AB24E003604FA /* DDCompositeStateMachine.h */,
 				6513ED6E228AB24E003604FA /* DDCompositeStateMachine.m */,
+				650E1293228C6F5400B8DCEF /* DDStateMachineWriter.h */,
+				650E1294228C6F5400B8DCEF /* DDStateMachineWriter.m */,
 				6513ED6A228AB23C003604FA /* DDStateMachine.h */,
 				6513ED6B228AB23C003604FA /* DDStateMachine.m */,
 				6513ED7A228AB365003604FA /* DDStateMachineContext.h */,
@@ -492,6 +497,7 @@
 				6513ED86228AD079003604FA /* DDUIAlertViewStateMachine.m in Sources */,
 				6513ED7C228AB365003604FA /* DDStateMachineContext.m in Sources */,
 				650E1289228BB2B700B8DCEF /* DDCppStatMachineFactory.mm in Sources */,
+				650E1295228C6F5400B8DCEF /* DDStateMachineWriter.m in Sources */,
 				6513ED79228AB2C0003604FA /* DDStateMachine+Private.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

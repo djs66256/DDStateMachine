@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)obeyWithResult:(nullable DDStateMachineResult)result params:(nullable NSDictionary *)params;
 
+@property (nonatomic, strong, readonly) NSString *name;
+
 @end
 
 @interface DDStateResultRule : DDStateRule
