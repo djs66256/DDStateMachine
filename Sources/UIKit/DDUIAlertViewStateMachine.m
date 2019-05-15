@@ -56,4 +56,12 @@
     }];
 }
 
+- (NSArray<NSString *> *)validResults {
+    NSMutableArray *array = [NSMutableArray new];
+    for (DDUIAlertViewStateMachineAction *action in _actions) {
+        [array addObject:action.result];
+    }
+    return array;
+}
+
 @end

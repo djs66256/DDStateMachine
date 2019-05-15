@@ -35,10 +35,15 @@
 
 @implementation DDBlockStateMachine
 
-+ (instancetype)stateMachineWithBlock:(DDBlockStateMachineBlock)block {
++ (instancetype)stateMachineWithBlock:(DDBlockStateMachineBlock)block validResults:(NSArray<NSString *> *)validResults {
     DDBlockStateMachine *machine = [DDBlockStateMachine new];
     machine.block = block;
+    machine->_validResults = validResults;
     return machine;
+}
+
++ (instancetype)stateMachineWithBlock:(DDBlockStateMachineBlock)block {
+    return [self stateMachineWithBlock:block validResults:nil];
 }
 
 - (void)mainWithParams:(NSDictionary *)params {

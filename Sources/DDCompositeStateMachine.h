@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addRule:(DDStateRule *)rule from:(DDStateMachine *)from to:(DDStateMachine *)to;
 
+- (BOOL)checkRuleCompleteWithError:(NSError **)error;
+
 @end
 
 NS_ASSUME_NONNULL_END

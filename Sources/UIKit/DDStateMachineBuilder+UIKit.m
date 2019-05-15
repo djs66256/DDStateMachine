@@ -25,7 +25,7 @@
     DDStateMachine *machine = [DDBlockStateMachine stateMachineWithBlock:^(DDBlockStateMachine * _Nonnull machine, NSDictionary * _Nullable params, DDBlockStateMachineCompletionBlock  _Nonnull completion) {
         [SVProgressHUD showSuccessWithStatus:text];
         completion(nil, nil);
-    }];
+    } validResults:nil];
     machine.debugName = name;
     return machine;
 }

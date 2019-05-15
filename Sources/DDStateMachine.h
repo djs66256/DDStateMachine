@@ -20,7 +20,10 @@ typedef NSString * DDStateMachineResult;
 
 @end
 
-@interface DDStateMachine : NSObject
+@interface DDStateMachine : NSObject {
+    @protected
+    NSArray<NSString *> *_validResults;
+}
 
 @property (nonatomic, weak) id<DDStateMachineDelegate> delegate;
 
@@ -42,7 +45,7 @@ typedef NSString * DDStateMachineResult;
 
 // for debug
 @property (nonatomic, strong, nullable) NSString *debugName;
-@property (nonatomic, strong, readonly, nullable) NSArray<NSString *> *validateResults;
+@property (nonatomic, strong, readonly, nullable) NSArray<NSString *> *validResults;
 
 @end
 
@@ -58,6 +61,7 @@ typedef void (^DDBlockStateMachineBlock)(DDBlockStateMachine *machine,
 @property (nonatomic, strong) DDBlockStateMachineBlock block;
 
 + (instancetype)stateMachineWithBlock:(DDBlockStateMachineBlock)block;
++ (instancetype)stateMachineWithBlock:(DDBlockStateMachineBlock)block validResults:(nullable NSArray<NSString *> *)validResults;
 
 @end
 

@@ -12,9 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DDStateRule : NSObject
 
-@property (nonatomic, strong) NSString *traceLog;
+@property (nonatomic, strong, nullable) NSString *traceLog;
 
-- (BOOL)obeyWithResult:(DDStateMachineResult _Nullable)result params:(NSDictionary *)params;
+- (BOOL)obeyWithResult:(nullable DDStateMachineResult)result params:(nullable NSDictionary *)params;
 
 @end
 

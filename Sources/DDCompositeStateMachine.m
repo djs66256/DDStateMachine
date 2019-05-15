@@ -12,6 +12,7 @@
     NSMapTable<DDStateRule *, DDStateMachine *> *_ruleWithMachine;
 }
 
+- (NSArray<DDStateRule *> *)allRules;
 - (void)addRule:(DDStateRule *)rule toMachine:(DDStateMachine *)machine;
 - (void)nextStateMachineWithResult:(NSString *)result params:(NSDictionary *)params result:(void(^NS_NOESCAPE)(DDStateRule *, DDStateMachine *))block;
 
@@ -28,6 +29,17 @@
     return self;
 }
 
+- (NSArray<DDStateRule *> *)allRules {
+    NSMutableArray *array = [NSMutableArray new];
+    __auto_type enumerator = _ruleWithMachine.keyEnumerator;
+    DDStateRule *rule = nil;
+    while ((rule = [enumerator nextObject])) {
+        [array addObject:rule];
+    }
+    
+    return array;
+}
+
 - (void)addRule:(DDStateRule *)rule toMachine:(DDStateMachine *)machine {
     [_ruleWithMachine setObject:machine forKey:rule];
 }
@@ -36,7 +48,7 @@
     NSParameterAssert(block);
     __auto_type enumerator = _ruleWithMachine.keyEnumerator;
     DDStateRule *rule = nil;
-    while (rule = [enumerator nextObject]) {
+    while ((rule = [enumerator nextObject])) {
         if ([rule obeyWithResult:result params:params]) {
             DDStateMachine *machine = [_ruleWithMachine objectForKey:rule];
             block(rule, machine);
@@ -96,21 +108,21 @@
     }
     
     params = _params.copy;
-    if (stateMachine == _end) {
-        if (!self.isCancelled) {
-            [self.delegate stateMachine:self finishWithResult:result params:params];
-            if (self.completionBlock) {
-                self.completionBlock(result, params);
+    DDCompositeStateRules *rules = [_rules objectForKey:stateMachine];
+    [rules nextStateMachineWithResult:result params:params result:^(DDStateRule *rule, DDStateMachine *machine) {
+        if (machine == self->_end) {
+            if (!self.isCancelled) {
+                [self.delegate stateMachine:self finishWithResult:result params:params];
+                if (self.completionBlock) {
+                    self.completionBlock(result, params);
+                }
             }
         }
-    }
-    else {
-        DDCompositeStateRules *rules = [_rules objectForKey:stateMachine];
-        [rules nextStateMachineWithResult:result params:params result:^(DDStateRule *rule, DDStateMachine *machine) {
+        else {
             machine.delegate = self;
             [machine startWithParams:params];
-        }];
-    }
+        }
+    }];
 }
 
 - (void)addRule:(DDStateRule *)rule from:(DDStateMachine *)from to:(DDStateMachine *)to {
@@ -120,6 +132,47 @@
         [_rules setObject:rules forKey:from];
     }
     [rules addRule:rule toMachine:to];
+}
+
+- (BOOL)checkRuleCompleteWithError:(NSError * _Nullable __autoreleasing *)error {
+    NSMutableString *errorString = [NSMutableString new];
+    DDStateMachine *machine = nil;
+    __auto_type machineEnumerator = _rules.keyEnumerator;
+    while ((machine = machineEnumerator.nextObject)) {
+        if ([machine isKindOfClass:DDCompositeStateMachine.class]) {
+            NSError *e = nil;
+            if (![(DDCompositeStateMachine *)machine checkRuleCompleteWithError:&e]) {
+                [errorString appendString:e.localizedDescription ?: @""];
+            }
+            continue;
+        }
+        
+        __auto_type validResults = machine.validResults;
+        __auto_type rules = [[_rules objectForKey:machine] allRules];
+        for (NSString *result in validResults) {
+            BOOL found = NO;
+            for (DDStateRule *rule in rules) {
+                if ([rule obeyWithResult:result params:nil]) {
+                    found = YES;
+                    break;
+                }
+            }
+            if (found) {
+                break;
+            }
+            else {
+                // Not found, add error
+                [errorString appendFormat:@"<%@> %@ do not obey result(%@); ", NSStringFromClass(machine.class), machine.debugName, result];
+            }
+        }
+    }
+    if (errorString.length) {
+        if (error) {
+            *error = [NSError errorWithDomain:@"com.statemachine" code:-1 userInfo:@{NSLocalizedDescriptionKey: errorString}];
+        }
+        return NO;
+    }
+    return YES;
 }
 
 @end
