@@ -40,9 +40,25 @@ namespace StateMachine {
     
     class StateMachine {
     public:
+        enum class Type {
+            Default = DDStateMachineTypeDefault,
+            Boolean = DDStateMachineTypeBoolean,
+            StartEnd = DDStateMachineTypeStartEnd,
+        };
+        
         explicit StateMachine(DDStateMachine *machine, DDCompositeStateMachine *compositeMachine) :
             machine_(machine),
             compositeMachine_(compositeMachine) {}
+        
+        StateMachine& debugName(NSString *name) {
+            machine_.debugName = name;
+            return *this;
+        }
+        
+        StateMachine& debugType(Type type) {
+            machine_.debugType = (DDStateMachineType)type;
+            return *this;
+        }
         
         StateMachine& operator >> (NSString *result) {
             result_ = result;
@@ -96,12 +112,12 @@ namespace StateMachine {
             return StateMachine(compositeMachine_.end, compositeMachine_);
         }
         
-        StateMachine check(NSString *name, BOOL(^block)(NSDictionary *params));
-        StateMachine alert(NSString *name, NSString *title, NSString *message, void (^actions)(DDUIAlertViewStateMachine *));
+        StateMachine check(BOOL(^block)(NSDictionary *params));
+        StateMachine alert(NSString *title, NSString *message, void (^actions)(DDUIAlertViewStateMachine *));
         
-        StateMachine toast(NSString *name, NSString *text);
+        StateMachine toast(NSString *text);
         
-        StateMachine request(NSString *name, NSURLRequest *(^requestBlock)(NSDictionary * ), void (^completionBlock)(NSURLRequest *, NSURLResponse *, NSDictionary *, DDBlockStateMachineCompletionBlock));
+        StateMachine request(NSURLRequest *(^requestBlock)(NSDictionary * ), void (^completionBlock)(NSURLRequest *, NSURLResponse *, NSDictionary *, DDBlockStateMachineCompletionBlock));
         
         DDCompositeStateMachine *compositeMachine() { return compositeMachine_; }
     private:

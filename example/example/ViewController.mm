@@ -117,25 +117,25 @@
     ctx.viewController = self;
     auto b = Builder(ctx);
     
-    auto checkNetwork = b.check(@"网络连接", ^BOOL(NSDictionary *params) {
+    auto checkNetwork = b.check(^BOOL(NSDictionary *params) {
         return ![self isOffline];
-    });
-    auto checkLogin = b.check(@"用户登录", ^BOOL(NSDictionary * _Nullable params) {
+    }).debugName(@"网络连接");
+    auto checkLogin = b.check(^BOOL(NSDictionary * _Nullable params) {
         return [self isLogin];
-    });
-    auto praiseRequest = b.request(@"点赞请求", ^NSURLRequest * _Nonnull(NSDictionary * _Nonnull params) {
+    }).debugName(@"用户登录");
+    auto praiseRequest = b.request(^NSURLRequest * _Nonnull(NSDictionary * _Nonnull params) {
         return [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]];
     }, ^(NSURLRequest * _Nonnull request, NSURLResponse * _Nonnull response, NSDictionary * _Nonnull params, DDBlockStateMachineCompletionBlock  _Nonnull completion) {
         completion(DDStateMachineResultSuccess, nil);
-    });
+    }).debugName(@"点赞请求");
     
-    auto alert = b.alert(@"更新UI", @"更新UI", nil, ^(DDUIAlertViewStateMachine * _Nonnull machine) {
+    auto alert = b.alert(@"更新UI", nil, ^(DDUIAlertViewStateMachine * _Nonnull machine) {
         [machine addAction:@"确定" style:UIAlertActionStyleDefault result:DDStateMachineResultSuccess];
         [machine addAction:@"取消" style:UIAlertActionStyleCancel result:DDStateMachineResultFailure];
-    });
+    }).debugName(@"更新UI");
     
-    auto successToast = b.toast(@"提示", @"请求成功");
-    auto failureToast = b.toast(@"提示", @"请求失败");
+    auto successToast = b.toast(@"请求成功").debugName(@"提示");
+    auto failureToast = b.toast(@"请求失败").debugName(@"提示");
     
     b.start()
         >> checkNetwork;
