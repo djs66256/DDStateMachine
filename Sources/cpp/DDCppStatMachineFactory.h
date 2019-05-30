@@ -106,10 +106,10 @@ namespace StateMachine {
         Builder(DDStateMachineContext *ctx) : context_(ctx) {}
         
         StateMachine start() {
-            return StateMachine(compositeMachine_.start, compositeMachine_);
+            return StateMachine(compositeMachine_.start, compositeMachine_).debugName(@"Start");
         }
         StateMachine end() {
-            return StateMachine(compositeMachine_.end, compositeMachine_);
+            return StateMachine(compositeMachine_.end, compositeMachine_).debugName(@"End");
         }
         
         StateMachine check(BOOL(^block)(NSDictionary *params));

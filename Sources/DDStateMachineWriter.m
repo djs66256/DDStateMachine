@@ -62,6 +62,27 @@
     NSString *toName = [self nameWithMachine:to];
     
     [_stream appendString:fromName];
+    if (from.debugName) {
+        switch (from.debugType) {
+            case DDStateMachineTypeDefault:
+                [_stream appendString:@"("];
+                [_stream appendString:from.debugName];
+                [_stream appendString:@")"];
+                break;
+            case DDStateMachineTypeBoolean:
+                [_stream appendString:@"{"];
+                [_stream appendString:from.debugName];
+                [_stream appendString:@"}"];
+                break;
+            case DDStateMachineTypeStartEnd:
+                [_stream appendString:@"["];
+                [_stream appendString:from.debugName];
+                [_stream appendString:@"]"];
+                break;
+            default:
+                break;
+        }
+    }
     [_stream appendString:@" --> "];
     NSString *ruleName = rule.name;
     if (ruleName.length > 0) {
