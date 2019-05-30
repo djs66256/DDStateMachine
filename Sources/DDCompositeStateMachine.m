@@ -167,10 +167,7 @@
                     break;
                 }
             }
-            if (found) {
-                break;
-            }
-            else {
+            if (!found) {
                 // Not found, add error
                 [errorString appendFormat:@"<%@> %@ do not obey result(%@); ", NSStringFromClass(machine.class), machine.debugName, result];
             }

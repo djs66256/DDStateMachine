@@ -36,7 +36,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Sources/UIKit/DDStateMachineBuilder+UIKit.m"
-            timestampString = "579630726.975769"
+            timestampString = "579630835.255078"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "37"
@@ -52,7 +52,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Sources/UIKit/DDStateMachineBuilder+UIKit.m"
-            timestampString = "579630726.975834"
+            timestampString = "579630835.255132"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "35"
@@ -68,12 +68,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Sources/DDStateMachineWriter.m"
-            timestampString = "579630726.975877"
+            timestampString = "579630835.255173"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "62"
             endingLineNumber = "62"
             landmarkName = "-writeStateMachine:rule:to:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Sources/DDCompositeStateMachine.m"
+            timestampString = "580899724.978761"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "-checkRuleCompleteWithError:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Sources/DDCompositeStateMachine.m"
+            timestampString = "580899724.979085"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "-checkRuleCompleteWithError:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

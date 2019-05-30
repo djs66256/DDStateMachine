@@ -52,7 +52,7 @@ typedef NS_ENUM(NSInteger, DDStateMachineType) {
 // for debug
 @property (nonatomic, assign) DDStateMachineType debugType;
 @property (nonatomic, strong, nullable) NSString *debugName;
-@property (nonatomic, strong, readonly, nullable) NSArray<NSString *> *validResults;
+@property (nonatomic, strong, nullable) NSArray<NSString *> *validResults;
 
 @end
 

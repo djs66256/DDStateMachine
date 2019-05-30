@@ -21,6 +21,7 @@ namespace StateMachine {
             }
         }];
         machine.context = context_;
+        machine.validResults = @[Result::Yes, Result::No];
         return StateMachine(machine, compositeMachine_);
     }
     StateMachine Builder::alert(NSString *title, NSString *message, void (^actions)(DDUIAlertViewStateMachine *)) {

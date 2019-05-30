@@ -145,8 +145,8 @@
         >> Result::No >> b.end();
     
     checkLogin
-        >> Result::Yes >> praiseRequest
-        >> Result::No >> b.end();
+        >> Result::Yes >> praiseRequest;
+//        >> Result::No >> b.end();
     
     praiseRequest
         >> Result::Success >> alert
@@ -175,6 +175,12 @@
     DDStateMachineMarkdownWriter *writer = [DDStateMachineMarkdownWriter new];
     [self.stateMachine debugWriteMarkdownText:writer];
     NSLog(@"%@", writer.markdownText);
+    
+    NSError *error = nil;
+    [self.stateMachine checkRuleCompleteWithError:&error];
+    if (error) {
+        NSLog(@"Error: %@", error.localizedDescription);
+    }
 }
 
 
