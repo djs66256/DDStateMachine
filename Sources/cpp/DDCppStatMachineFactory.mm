@@ -27,7 +27,7 @@ namespace StateMachine {
     StateMachine Builder::alert(NSString *title, NSString *message, void (^actions)(DDUIAlertViewStateMachine *)) {
         NSCParameterAssert(actions);
         DDUIAlertViewStateMachine *machine = [DDUIAlertViewStateMachine new];
-        machine.
+        machine.queue = dispatch_get_main_queue();
         machine.context = context_;
         machine.title = title;
         machine.message = message;
@@ -40,6 +40,7 @@ namespace StateMachine {
                                    [SVProgressHUD showSuccessWithStatus:text];
                                    completion(nil, nil);
                                    }];
+        machine.queue = dispatch_get_main_queue();
         machine.context = context_;
         return StateMachine(machine, compositeMachine_);
     }

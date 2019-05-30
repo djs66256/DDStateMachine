@@ -27,7 +27,7 @@
 }
 
 - (void)startWithParams:(NSDictionary *)params {
-    if (!atomic_load(&_cancelled)) {
+    if (!atomic_load(&_cancelled) && !atomic_load(&_excuting)) {
         atomic_store(&_excuting, YES);
         if (self.queue) {
             dispatch_async(self.queue, ^{

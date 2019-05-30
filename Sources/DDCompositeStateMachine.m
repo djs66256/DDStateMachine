@@ -120,6 +120,9 @@
     params = _params.copy;
     DDCompositeStateRules *rules = [_rules objectForKey:stateMachine];
     [rules nextStateMachineWithResult:result params:params result:^(DDStateRule *rule, DDStateMachine *machine) {
+        if (rule.traceLog) {
+            NSLog(@"Machine (%@) will goto (%@) with log (%@)", stateMachine.debugName, machine.debugName, rule.traceLog);
+        }
         if (machine == self->_end) {
             if (!self.isCancelled) {
                 [self.delegate stateMachine:self finishWithResult:result params:params];

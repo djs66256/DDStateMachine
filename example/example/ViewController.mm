@@ -129,10 +129,10 @@
         completion(DDStateMachineResultSuccess, nil);
     }).debugName(@"点赞请求");
     
-    auto alert = b.alert(@"更新UI", nil, ^(DDUIAlertViewStateMachine * _Nonnull machine) {
-        [machine addAction:@"确定" style:UIAlertActionStyleDefault result:DDStateMachineResultSuccess];
-        [machine addAction:@"取消" style:UIAlertActionStyleCancel result:DDStateMachineResultFailure];
-    }).debugName(@"更新UI");
+//    auto alert = b.alert(@"更新UI", nil, ^(DDUIAlertViewStateMachine * _Nonnull machine) {
+//        [machine addAction:@"确定" style:UIAlertActionStyleDefault result:DDStateMachineResultSuccess];
+//        [machine addAction:@"取消" style:UIAlertActionStyleCancel result:DDStateMachineResultFailure];
+//    }).debugName(@"更新UI");
     
     auto successToast = b.toast(@"请求成功").debugName(@"提示");
     auto failureToast = b.toast(@"请求失败").debugName(@"提示");
@@ -141,20 +141,20 @@
         >> checkNetwork;
     
     checkNetwork
-        >> Result::Yes >> checkLogin
+        >> Result::Yes >> Trace(@"online") >> checkLogin
         >> Result::No >> b.end();
     
     checkLogin
-        >> Result::Yes >> praiseRequest;
-//        >> Result::No >> b.end();
+        >> Result::Yes >> Trace(@"login") >> praiseRequest
+        >> Result::No >> b.end();
     
     praiseRequest
-        >> Result::Success >> alert
-        >> Result::Failure >> b.end();
-    
-    alert
-        >> Result::Success >> successToast
+        >> Result::Success >> Trace(@"praised")>> successToast
         >> Result::Failure >> failureToast;
+    
+//    alert
+//        >> Result::Success >> successToast
+//        >> Result::Failure >> failureToast;
     
     successToast
         >> b.end();
