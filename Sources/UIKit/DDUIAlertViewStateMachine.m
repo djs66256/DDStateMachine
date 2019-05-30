@@ -37,7 +37,7 @@
     })];
 }
 
-- (void)startWithParams:(NSDictionary *)params {
+- (void)mainWithParams:(NSDictionary *)params {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:self.title
                                                                    message:self.message
                                                             preferredStyle:UIAlertControllerStyleAlert];

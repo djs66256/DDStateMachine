@@ -35,6 +35,8 @@ typedef NS_ENUM(NSInteger, DDStateMachineType) {
 
 @property (nonatomic, strong, readonly) DDStateMachineContext *context;
 @property (nonatomic, assign, readonly, getter=isCancelled) BOOL cancelled;
+@property (nonatomic, assign, readonly, getter=isExcuting) BOOL excuting;
+@property (nonatomic, assign, nullable) dispatch_queue_t queue;
 
 // for override
 - (void)startWithParams:(nullable NSDictionary *)params;
@@ -64,7 +66,6 @@ typedef void (^DDBlockStateMachineBlock)(DDBlockStateMachine *machine,
 
 @interface DDBlockStateMachine : DDStateMachine
 
-@property (nonatomic, assign, nullable) dispatch_queue_t queue;
 @property (nonatomic, strong) DDBlockStateMachineBlock block;
 
 + (instancetype)stateMachineWithBlock:(DDBlockStateMachineBlock)block;

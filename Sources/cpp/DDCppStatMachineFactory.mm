@@ -27,6 +27,7 @@ namespace StateMachine {
     StateMachine Builder::alert(NSString *title, NSString *message, void (^actions)(DDUIAlertViewStateMachine *)) {
         NSCParameterAssert(actions);
         DDUIAlertViewStateMachine *machine = [DDUIAlertViewStateMachine new];
+        machine.
         machine.context = context_;
         machine.title = title;
         machine.message = message;
